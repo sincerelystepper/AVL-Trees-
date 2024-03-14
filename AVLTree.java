@@ -120,7 +120,7 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
       return balance (node);
    }
 
-   public BinaryTreeNode<DataItem> find ( DataItem d )
+   public BinaryTreeNode<DataItem> find (DataItem d )
    {
       if (root == null)
          return null;
@@ -172,6 +172,34 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
         } catch (IOException e) {
             System.err.println("Error reading file: " + e.getMessage());
         }
+    }
+
+    public void loadFromQuery(String filename) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String queryItem = line.trim(); // Assuming each line contains a single query item
+                searchAndPrintResult(queryItem);
+            }
+            System.out.println("Queries processed successfully.");
+        } catch (IOException e) {
+            System.err.println("Error reading file: " + e.getMessage());
+        }
+    }
+
+    private void searchAndPrintResult(DataItem queryItem) {
+        BinaryTreeNode<DataItem> resultNode = find(queryItem);
+        if (resultNode != null) {
+            DataItem result = resultNode.getData();
+            System.out.println(queryItem + ": " + result.getStatement());
+        } else {
+            System.out.println("Term not found: " + queryItem);
+        }
+    }
+
+    public DataItem find(DataItem d) {
+        // Your existing find method implementation
+        // Search for d in the AVL tree and return the corresponding DataItem
     }
 }
 

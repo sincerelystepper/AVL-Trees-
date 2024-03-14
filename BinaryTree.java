@@ -11,6 +11,14 @@ public class BinaryTree<dataType>
       root = null;
    }
    
+   public dataType getData(BinaryTreeNode<dataType> node) {
+    if (node == null) {
+        return null; // Node is null, return null data
+    }
+    return node.getData(); // Assuming BinaryTreeNode has a getData() method
+}
+
+
    public int getHeight ()
    {
       return getHeight (root);
