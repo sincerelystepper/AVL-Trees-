@@ -36,7 +36,7 @@ public static void main ( String [] args ){
 // Insert items into the tree (your code)
 
 DataItem targetItem = new DataItem("Kopano", null, 0); // Adjust for your target item
-BinaryTreeNode<DataItem> foundNode = avlTree.find(targetItem);
+BinaryTreeNode<DataItem> foundNode = avlTree.find(targetItem); 
 
 if (foundNode != null) {
     DataItem foundData = foundNode.data;
