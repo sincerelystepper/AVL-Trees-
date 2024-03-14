@@ -187,19 +187,14 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
         }
     }
 
-    private void searchAndPrintResult(DataItem queryItem) {
+    private void searchAndPrintResult(DataItem queryItem) { 
         BinaryTreeNode<DataItem> resultNode = find(queryItem);
         if (resultNode != null) {
-            DataItem result = resultNode.getData();
-            System.out.println(queryItem + ": " + result.getStatement());
+            System.out.println(queryItem + ": " + resultNode.getData().getStatement());
         } else {
             System.out.println("Term not found: " + queryItem);
         }
     }
 
-    public DataItem find(DataItem d) {
-        // Your existing find method implementation
-        // Search for d in the AVL tree and return the corresponding DataItem
-    }
 }
 
