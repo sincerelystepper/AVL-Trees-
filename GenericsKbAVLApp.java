@@ -17,7 +17,7 @@ public class GenericsKbAVLApp {
 
     public static void main (String [] args){
 
-        GenericsKbAVLApp object = new GenericsKbAVLApp(null, null, 0);
+       // GenericsKbAVLApp object = new GenericsKbAVLApp(null, null, 0);
 
     }
 }
