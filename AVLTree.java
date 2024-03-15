@@ -7,7 +7,7 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 
-public class AVLTree<dataType extends Comparable<? super DataItem>> extends BinaryTree<DataItem>
+public class AVLTree<dataType extends Comparable<? super DataItem>> extends BinaryTree<DataItem> 
 {
    public int height ( BinaryTreeNode<DataItem> node )
    {
@@ -178,8 +178,11 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
         try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
             String line;
             while ((line = reader.readLine()) != null) {
+
+
                 String queryItem = line.trim(); // Assuming each line contains a single query item
-                searchAndPrintResult(queryItem);
+                DataItem queried = new DataItem(queryItem, null,0);
+                searchAndPrintResult(queried);
             }
             System.out.println("Queries processed successfully.");
         } catch (IOException e) {
@@ -190,9 +193,10 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
     private void searchAndPrintResult(DataItem queryItem) { 
         BinaryTreeNode<DataItem> resultNode = find(queryItem);
         if (resultNode != null) {
-            System.out.println(queryItem + ": " + resultNode.getData().getStatement());
+            String itemName = queryItem.getItem();
+            System.out.println(itemName + ": " + resultNode.getData().getStatement());
         } else {
-            System.out.println("Term not found: " + queryItem);
+            System.out.println("Term not found: " + queryItem.getItem());
         }
     }
 
