@@ -8,7 +8,7 @@ public class BinaryTree<dataType>
    
    public BinaryTree ()
    {
-      root = null;
+      root = null; 
    }
    
    public dataType getData(BinaryTreeNode<dataType> node) {

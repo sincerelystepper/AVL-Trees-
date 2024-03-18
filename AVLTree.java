@@ -193,10 +193,10 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
     private void searchAndPrintResult(DataItem queryItem) { 
         BinaryTreeNode<DataItem> resultNode = find(queryItem);
         if (resultNode != null) {
-            String itemName = queryItem.getItem();
-            System.out.println("let's see if its you.");
+            String itemName = queryItem.getItem(); // Key
+            //System.out.println("let's see if its you.");
             System.out.println(itemName + ": " + resultNode.getData().getStatement());
-            System.out.println("Ahhh, who do we have here?");
+            //System.out.println("Ahhh, who do we have here?");
         } else {
             System.out.println("Term not found: " + queryItem.getItem());
         }

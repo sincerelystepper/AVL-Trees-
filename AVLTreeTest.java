@@ -1,6 +1,6 @@
-// Hussein's AVL Tree
-// 2 April2017
-// Hussein Suleman
+// Kopano's AVL test class with the main method
+// 18 March 2024
+// Kopano Maketekete
 
 
 public class AVLTreeTest extends DataItem// Convert this to GenericsKbAVLApp later
