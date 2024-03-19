@@ -53,20 +53,20 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
    public BinaryTreeNode<DataItem> balance ( BinaryTreeNode<DataItem> p )
    {
       fixHeight (p);
-      if (balanceFactor (p) == 2) // it means the tree is imbalanced (balance factor is more that 1)
+      if (balanceFactor (p) == 2)
       {
-         if (balanceFactor (p.right) < 0){ // Right-left imbalance
-            //countBalance++;
-            p.right = rotateRight (p.right);}
-         return rotateLeft (p); 
+         if (balanceFactor (p.right) < 0)
+            p.right = rotateRight (p.right);
+            countBalance++; // Increments operation to the left
+         return rotateLeft (p);
       }
       if (balanceFactor (p) == -2)
       {
          if (balanceFactor (p.left) > 0)
-            //countBalance++;
-            p.left = rotateLeft (p.left);}
+            p.left = rotateLeft (p.left);
+            countBalance++; // Increments operation to the right
          return rotateRight (p);
-   }
+      }
       return p;
    }
 
