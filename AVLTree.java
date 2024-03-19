@@ -9,6 +9,10 @@ import java.io.IOException;
 
 public class AVLTree<dataType extends Comparable<? super DataItem>> extends BinaryTree<DataItem> 
 {
+   private int searchCount = 0; 
+   private int insertCount = 0;
+   private int countBalance = 0;
+
    public int height ( BinaryTreeNode<DataItem> node )
    {
       if (node != null)
@@ -49,18 +53,20 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
    public BinaryTreeNode<DataItem> balance ( BinaryTreeNode<DataItem> p )
    {
       fixHeight (p);
-      if (balanceFactor (p) == 2)
+      if (balanceFactor (p) == 2) // it means the tree is imbalanced (balance factor is more that 1)
       {
-         if (balanceFactor (p.right) < 0)
-            p.right = rotateRight (p.right);
-         return rotateLeft (p);
+         if (balanceFactor (p.right) < 0){ // Right-left imbalance
+            //countBalance++;
+            p.right = rotateRight (p.right);}
+         return rotateLeft (p); 
       }
       if (balanceFactor (p) == -2)
       {
          if (balanceFactor (p.left) > 0)
-            p.left = rotateLeft (p.left);
+            //countBalance++;
+            p.left = rotateLeft (p.left);}
          return rotateRight (p);
-      }
+   }
       return p;
    }
 
@@ -70,13 +76,18 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
    }
    public BinaryTreeNode<DataItem> insert ( DataItem d, BinaryTreeNode<DataItem> node )
    {
-      if (node == null)
-         return new BinaryTreeNode<DataItem> (d, null, null);
-      if (d.compareTo (node.data) <= 0)
-         node.left = insert (d, node.left);
-      else
-         node.right = insert (d, node.right);
-      return balance (node);
+      if (node == null) {     
+         insertCount++; // Increment count for empty tree   
+         return new BinaryTreeNode<DataItem> (d, null, null);}
+
+      if (d.compareTo (node.data) <= 0) {  
+         insertCount++; // Increment count for comparisons
+         node.left = insert (d, node.left);}        
+
+      else 
+         node.right = insert (d, node.right);   
+         insertCount++;  // Increment count for comparisons
+         return balance (node);
    }
    
    public void delete ( DataItem d )
@@ -127,14 +138,17 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
       else
          return find (d, root);
    }
-   public BinaryTreeNode<DataItem> find ( DataItem d, BinaryTreeNode<DataItem> node )
+   public BinaryTreeNode<DataItem> find ( DataItem d, BinaryTreeNode<DataItem> node ) // Search method
    {
-      if (d.compareTo (node.data) == 0) 
-         return node;
-      else if (d.compareTo (node.data) < 0)
-         return (node.left == null) ? null : find (d, node.left);
-      else
-         return (node.right == null) ? null : find (d, node.right);
+      if (d.compareTo (node.data) == 0) {
+         searchCount++;
+         return node;}
+      else if (d.compareTo (node.data) < 0) {
+         searchCount++;
+         return (node.left == null) ? null : find (d, node.left);}
+      else {
+         searchCount++;
+         return (node.right == null) ? null : find (d, node.right);}
    }
    
    public void treeOrder ()
@@ -197,9 +211,18 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
             //System.out.println("let's see if its you.");
             System.out.println(itemName + ": " + resultNode.getData().getStatement());
             //System.out.println("Ahhh, who do we have here?");
-        } else {
+        }         
+        
+        else {
             System.out.println("Term not found: " + queryItem.getItem());
         }
+    }
+
+    public void printComparisonCounts() {
+      System.out.println();
+      System.out.println("Search Comparisons: " + searchCount);
+      System.out.println("Insert Comparisons: " + insertCount);
+      System.out.println("Balance Comparisons: " + countBalance);
     }
 }
 
