@@ -212,8 +212,8 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
         if (resultNode != null) {
             String itemName = queryItem.getItem(); // Key
             //System.out.println("let's see if its you.");
-            System.out.print(itemName + ": " + resultNode.getData().getStatement());
-            System.out.println(resultNode.getData().getConfidence());
+            System.out.print(itemName + ": " + resultNode.getData().getStatement() + " ");
+            System.out.println("(" + resultNode.getData().getConfidence() + ")");
             //System.out.println("Ahhh, who do we have here?");
         }         
         
@@ -229,6 +229,38 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
       System.out.println("Balance Comparisons: " + countBalance);
       System.out.println();
     }
+
+    public DataItem createDataItemFromLine(String line) {
+      String [] parts = line.split("\t");
+      if (parts.length == 3) {
+         String item = parts[0].trim();
+         String statement = parts[1].trim();
+         Double confidence = Double.parseDouble(parts[2].trim());
+         return new DataItem(item, statement, confidence);
+      }
+      else {
+         System.out.println("The line does not have an expected format. ");
+         return null;
+      }
+    }
+
+    public void loadFromFile (String filename, List<String> SampleIndexes) throws IOException {
+      try (BufferedReader reader = new BufferedReader(new FileReader(filename))) {
+          String line;          
+          List<DataItem> sampleData = new ArrayList<>(); // Temporary list for sample lines (sample DataItems)
+
+          int lineCount = 0; // Keep track of line number during reading 
+          while ((line = reader.readLine()) != null) {
+              if (SampleIndexes.contains(String.valueOf(lineCount))) {
+                  
+                  DataItem itemToInsert = createDataItemFromLine(line);
+                  sampleData.add(itemToInsert); // Add line if its index is in the sample
+              }
+              
+          } lineCount++;
+      } System.out.println("The list is loaded successfully.");
+
+  }
 
     public static List<DataItem> getRandomSample(List<DataItem> entireDataset, int sampleSize) {
       List<DataItem> sample = new ArrayList<>();
