@@ -6,6 +6,9 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 public class AVLTree<dataType extends Comparable<? super DataItem>> extends BinaryTree<DataItem> 
 {
@@ -141,13 +144,13 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
    public BinaryTreeNode<DataItem> find ( DataItem d, BinaryTreeNode<DataItem> node ) // Search method
    {
       if (d.compareTo (node.data) == 0) {
-         searchCount++;
-         return node;}
+         searchCount++; // Search comparison which will return one comparison since it only compares one node to the root node.
+         return node;} 
       else if (d.compareTo (node.data) < 0) {
-         searchCount++;
+         searchCount++; //  Search comparison to the left of the  AVL tree, recurcively
          return (node.left == null) ? null : find (d, node.left);}
       else {
-         searchCount++;
+         searchCount++; // Search comparison to the right of the AVL tree, recursively
          return (node.right == null) ? null : find (d, node.right);}
    }
    
@@ -195,7 +198,7 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
 
 
                 String queryItem = line.trim(); // Assuming each line contains a single query item
-                DataItem queried = new DataItem(queryItem, null,0);
+                DataItem queried = new DataItem(queryItem, null,0); // Creating an object of DataItem, with no statement and score, so that it can use the methods
                 searchAndPrintResult(queried);
             }
             System.out.println("Queries processed successfully.");
@@ -209,7 +212,8 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
         if (resultNode != null) {
             String itemName = queryItem.getItem(); // Key
             //System.out.println("let's see if its you.");
-            System.out.println(itemName + ": " + resultNode.getData().getStatement());
+            System.out.print(itemName + ": " + resultNode.getData().getStatement());
+            System.out.println(resultNode.getData().getConfidence());
             //System.out.println("Ahhh, who do we have here?");
         }         
         
@@ -223,6 +227,26 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
       System.out.println("Search Comparisons: " + searchCount);
       System.out.println("Insert Comparisons: " + insertCount);
       System.out.println("Balance Comparisons: " + countBalance);
+      System.out.println();
     }
+
+    public static List<DataItem> getRandomSample(List<DataItem> entireDataset, int sampleSize) {
+      List<DataItem> sample = new ArrayList<>();
+      Random random = new Random();
+  
+      // Ensure sample size doesn't exceed dataset size
+      if (sampleSize > entireDataset.size()) {
+          sampleSize = entireDataset.size();
+          System.out.println("Warning: Sample size exceeds dataset size. Using entire dataset.");
+      }
+  
+      for (int i = 0; i < sampleSize; i++) {
+          // Random index within the dataset bounds
+          int randomIndex = random.nextInt(entireDataset.size());
+          sample.add(entireDataset.get(randomIndex));
+      }
+      return sample;
+  }
+  
 }
 
