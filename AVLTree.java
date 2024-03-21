@@ -73,6 +73,8 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
       return p;
    }
 
+   
+
    public void insert ( DataItem d )
    {
       root = insert (d, root);
@@ -92,6 +94,11 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
          insertCount++;  // Increment count for comparisons
          return balance (node);
    }
+
+   public int getInsertCount() {
+      return insertCount;
+  }
+
    
    public void delete ( DataItem d )
    {
@@ -154,6 +161,11 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
          searchCount++; // Search comparison to the right of the AVL tree, recursively
          return (node.right == null) ? null : find (d, node.right);}
    }
+
+   public int getSearchCount() {
+      return searchCount;
+  }
+
    
    public void treeOrder ()
    {
@@ -223,12 +235,13 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
         }
     }
 
-    public void printComparisonCounts() {
+    public String printComparisonCounts() {
       System.out.println();
       System.out.println("Search Comparisons: " + searchCount);
       System.out.println("Insert Comparisons: " + insertCount);
       System.out.println("Balance Comparisons: " + countBalance);
       System.out.println();
+      return "Search Comparisons: " + searchCount + ", Insert Comparisons: " + insertCount + ", Balance Comparisons: " + countBalance;
     }
 
     public DataItem createDataItemFromLine(String line) {
