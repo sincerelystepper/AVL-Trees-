@@ -144,6 +144,7 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
    public BinaryTreeNode<DataItem> find ( DataItem d, BinaryTreeNode<DataItem> node ) // Search method
    {
       if (d.compareTo (node.data) == 0) {
+         //System.out.println("Going through");
          searchCount++; // Search comparison which will return one comparison since it only compares one node to the root node.
          return node;} 
       else if (d.compareTo (node.data) < 0) {
@@ -262,23 +263,34 @@ public class AVLTree<dataType extends Comparable<? super DataItem>> extends Bina
 
   }
 
-    public static List<DataItem> getRandomSample(List<DataItem> entireDataset, int sampleSize) {
-      List<DataItem> sample = new ArrayList<>();
-      Random random = new Random();
-  
-      // Ensure sample size doesn't exceed dataset size
-      if (sampleSize > entireDataset.size()) {
-          sampleSize = entireDataset.size();
-          System.out.println("Warning: Sample size exceeds dataset size. Using entire dataset.");
-      }
-  
-      for (int i = 0; i < sampleSize; i++) {
-          // Random index within the dataset bounds
-          int randomIndex = random.nextInt(entireDataset.size());
-          sample.add(entireDataset.get(randomIndex));
-      }
-      return sample;
-  }
+  public static List<String> getRandomSample(List<DataItem> entireDataset, int sampleSize) {
+   List<Integer> randomIndexes = new ArrayList<>();
+   Random random = new Random();
+ 
+   // Ensure sample size doesn't exceed dataset size
+   if (sampleSize > entireDataset.size()) {
+     sampleSize = entireDataset.size();
+     System.out.println("Warning: Sample size exceeds dataset size. Using entire dataset.");
+   }
+ 
+   // Generate random indexes
+   for (int i = 0; i < sampleSize; i++) {
+     // Random index within the dataset bounds
+     int randomIndex = random.nextInt(entireDataset.size());
+     while (randomIndexes.contains(randomIndex)) { // Ensure unique indexes
+       randomIndex = random.nextInt(entireDataset.size());
+     }
+     randomIndexes.add(randomIndex);
+   }
+ 
+   // Convert indexes to strings and return
+   List<String> sampleIndexes = new ArrayList<>();
+   for (int randomIndex : randomIndexes) {
+     sampleIndexes.add(String.valueOf(randomIndex));
+   }
+   return sampleIndexes;
+ }
+ 
   
 }
 
